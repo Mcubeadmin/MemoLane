@@ -392,7 +392,7 @@ const LoginPage: React.FC = () => {
           <div style={{ marginTop:'28px', paddingTop:'20px', borderTop:`1px solid ${theme.cardBorder}`, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
             <span style={{ color: theme.textMuted, fontSize:'10px', opacity:0.5 }}>v2.4.1</span>
             <span style={{ color: theme.textMuted, fontSize:'10px', letterSpacing:'0.15em', cursor:'pointer' }}>
-              REQUEST_ACCESS
+              MCUBE_ADMIN
             </span>
           </div>
         </div>
