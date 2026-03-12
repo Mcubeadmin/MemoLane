@@ -52,7 +52,7 @@ const LoginPage: React.FC = () => {
     cardBg:      isDark ? '#0d1117'      : '#ffffff',
     cardBorder:  isDark ? 'rgba(0,245,255,0.15)' : 'rgba(0,120,200,0.2)',
     text:        isDark ? '#cdd9e5'      : '#1a2332',
-    textMuted:   isDark ? 'rgba(0,245,255,0.4)'  : 'rgba(0,100,180,0.5)',
+    textMuted:   isDark ? 'rgba(0,245,255,0.8)'  : 'rgba(0,100,180,0.5)',
     accent:      isDark ? '#00f5ff'      : '#0078c8',
     accentDim:   isDark ? 'rgba(0,245,255,0.08)' : 'rgba(0,120,200,0.08)',
     inputBorder: isDark ? 'rgba(0,245,255,0.2)'  : 'rgba(0,120,200,0.3)',

@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
       {!collapsed && (
         <div className="px-4 pt-5 pb-3">
-          <span className="text-gray-400 dark:text-cyan-500/30 text-xs tracking-[0.2em] uppercase transition-colors duration-300">
+          <span className="text-gray-400 dark:text-cyan-500/60 text-xs tracking-[0.2em] uppercase transition-colors duration-300">
             // nav
           </span>
         </div>
@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
               transition-all duration-200 group relative
               ${isActive
                 ? 'text-cyan-500 dark:text-cyan-300 border-l-2 border-cyan-500 dark:border-cyan-400 pl-[6px] bg-cyan-500/5'
-                : 'text-gray-400 dark:text-cyan-500/40 hover:text-cyan-500 dark:hover:text-cyan-300 border-l-2 border-transparent hover:border-cyan-500/30 hover:bg-cyan-500/5'
+                : 'text-gray-400 dark:text-cyan-500/80 hover:text-cyan-500 dark:hover:text-cyan-300 border-l-2 border-transparent hover:border-cyan-500/30 hover:bg-cyan-500/5'
               }
             `}
           >
@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
       {!collapsed && (
         <div className="px-4 py-4 border-t border-gray-200 dark:border-cyan-500/10 transition-colors duration-300">
-          <span className="text-gray-300 dark:text-cyan-500/20 text-xs">v2.4.1</span>
+          <span className="text-gray-300 dark:text-cyan-500/60 text-xs">v0.0.1</span>
         </div>
       )}
     </aside>

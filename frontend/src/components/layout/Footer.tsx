@@ -27,11 +27,11 @@ const Footer: React.FC = () => {
 
       {/* Left — coordinates / flavour text */}
       <div className="flex items-center gap-4">
-        <span className="text-cyan-500/20 text-xs tracking-widest">
+        <span className="text-cyan-500/80 text-xs tracking-widest">
           MEMOLANE::SYS
         </span>
         <div className="w-px h-3 bg-cyan-500/10" />
-        <span className="text-cyan-500/15 text-xs hidden sm:block">
+        <span className="text-cyan-500/45 text-xs hidden sm:block">
           12°58'N 77°35'E
         </span>
       </div>
@@ -41,10 +41,10 @@ const Footer: React.FC = () => {
 
       {/* Right — live clock */}
       <div className="flex items-center gap-3">
-        <span className="text-cyan-500/20 text-xs tracking-widest hidden sm:block">
+        <span className="text-cyan-500/60 text-xs tracking-widest hidden sm:block">
           LOCAL::
         </span>
-        <span className="text-cyan-400/40 text-xs tabular-nums tracking-widest">
+        <span className="text-cyan-400 text-xs tabular-nums tracking-widest">
           {time}
         </span>
       </div>

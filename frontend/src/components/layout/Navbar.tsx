@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import ThemeToggle from '../../assets/ThemeToggle';
 
@@ -10,6 +10,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const [isOnline, setIsOnline] = useState<boolean>(false);
 
   const handleLogout = () => {
     logout();
@@ -39,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
         >
           MEMO<span className="text-cyan-500 dark:text-cyan-400">LANE</span>
         </span>
-        <span className="text-cyan-500/40 text-xs blink">_</span>
+        <span className="text-cyan-500 text-xs blink">_</span>
       </div>
 
       {/* Divider */}
@@ -47,9 +48,21 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
 
       {/* Right controls */}
       <div className="flex items-center gap-3">
-        <div className="hidden sm:flex items-center gap-1.5 text-xs tracking-widest text-gray-400 dark:text-cyan-500/40 transition-colors duration-300">
-          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          SYS::ONLINE
+        <div
+          className={`hidden sm:flex items-center gap-1.5 text-xs tracking-widest transition-colors duration-300 ${
+        isOnline
+          ? 'text-gray-700 dark:text-cyan-300'
+          : 'text-red-500 dark:text-red-400'
+          }`}
+        >
+          <div
+        className={`w-1.5 h-1.5 rounded-full ${
+          isOnline
+            ? 'bg-cyan-400 animate-pulse'
+            : 'bg-red-500 animate-pulse'
+        }`}
+          />
+          SYS:{isOnline ? 'ONLINE' : 'OFFLINE'}
         </div>
 
         <div className="w-px h-4 bg-gray-200 dark:bg-cyan-500/20" />
@@ -58,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
 
         <button
           onClick={handleLogout}
-          className="text-xs tracking-widest text-gray-400 dark:text-cyan-500/50 hover:text-red-400 transition-colors duration-300 uppercase border border-transparent hover:border-red-500/30 px-2 py-1"
+          className="text-xs tracking-widest text-gray-400 dark:text-cyan-500 hover:text-red-400 transition-colors duration-300 uppercase border border-transparent hover:border-red-500/30 px-2 py-1"
         >
           [ EXIT ]
         </button>

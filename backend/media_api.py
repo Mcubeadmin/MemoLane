@@ -86,3 +86,4 @@ async def serve_media(year: str, month: str, filename: str, current_user: User =
         return StreamingResponse(file_iterator(), media_type=mime_type)
     else:
         return FileResponse(file_path, media_type=mime_type)
+
