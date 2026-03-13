@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react'; //useRef is for future image modal
 
 // ── Types ────────────────────────────────────────────────────
 // TypeScript interfaces = shape of our data objects
@@ -45,20 +45,30 @@ const ExplorerPage: React.FC = () => {
   const [tree, setTree] = useState<YearEntry[]>([]);
   const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set());
   const [selection, setSelection] = useState<Selection | null>(null);
-  const [mounted, setMounted] = useState(false);
+//   const [mounted, setMounted] = useState(false);
 
   // Fetch directory tree from backend
   useEffect(() => {
-    setMounted(true);
+    // setMounted(true);
     // ── Real API call (uncomment when backend is ready) ──────
-    // fetch('/api/media/tree')
-    //   .then(r => r.json())
-    //   .then(data => setTree(data))
-    //   .catch(err => console.error('Failed to load media tree', err));
-
+    fetch(import.meta.env.VITE_API_BASE_URL + '/media/tree', {
+      credentials: 'include',
+      headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      },
+    })
+      .then(r => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+      })
+      .then(data => setTree(data))
+      .catch(err => console.error('Failed to load media tree', err));
+    
+    console.log('ExplorerPage mounted, fetching media tree...', tree);
     // Using mock data for now
-    setTree(MOCK_TREE);
-
+    // setTree(MOCK_TREE);
     // Auto-expand the most recent year
     if (MOCK_TREE.length > 0) {
       setExpandedYears(new Set([MOCK_TREE[MOCK_TREE.length - 1].year]));

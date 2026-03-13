@@ -13,7 +13,9 @@ router = APIRouter()
 
 # Configuration for media root (can be loaded from .env or config file)
 # This path is relative to the backend directory
-MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../media"))
+# MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../media"))
+MEDIA_ROOT = os.path.abspath("/media/mcube/external/sorted_media")  # Change this to your actual media directory
+
 
 def get_media_path(year: str, month: str, filename: str = None):
     """Constructs a secure path within the media root."""
@@ -87,3 +89,24 @@ async def serve_media(year: str, month: str, filename: str, current_user: User =
     else:
         return FileResponse(file_path, media_type=mime_type)
 
+@router.get("/api/media/tree")
+async def get_tree(current_user: User = Depends(get_current_active_user)):
+    tree: List[Dict] = []
+    years = [d for d in os.listdir(MEDIA_ROOT) if os.path.isdir(os.path.join(MEDIA_ROOT, d))]
+    for year in sorted(years, reverse=True):
+        year_path = os.path.join(MEDIA_ROOT, year)
+        months = []
+        for m in sorted(os.listdir(year_path)):
+            month_path = os.path.join(year_path, m)
+            if os.path.isdir(month_path):
+                files = [
+                    f for f in os.listdir(month_path)
+                    if os.path.isfile(os.path.join(month_path, f))
+                ]
+                months.append({
+                    "dir": m,
+                    "label": m.split("_", 1)[1] if "_" in m else m,
+                    "files": files
+                })
+        tree.append({"year": year, "months": months})
+    return tree

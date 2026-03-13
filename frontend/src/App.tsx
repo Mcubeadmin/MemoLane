@@ -20,7 +20,7 @@ function App() {
       title="TIMELINE"/></ProtectedShellRoute>} />
       <Route path="/explorer" element={<ProtectedShellRoute><ExplorerPage /></ProtectedShellRoute>} />
       <Route path="/memories" element={<ProtectedShellRoute><PlaceholderPage title="MEMORIES" /></ProtectedShellRoute>} />
-      {/* <Route path="*" element={<Navigate to="/timeline" />} /> */}
+      <Route path="*" element={<Navigate to="/explorer" />} />
     </Routes>
   );
 }

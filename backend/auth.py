@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 # Configuration
-SECRET_KEY = "your-secret-key"  # Change this in production!
+SECRET_KEY = "supersecretkey8754"  # Change this in production!
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

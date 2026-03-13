@@ -18,7 +18,7 @@ app = FastAPI()
 # CORS middleware to allow frontend to communicate with backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this to your frontend's origin in production
+    allow_origins=["http://localhost:5173", "https://memolane.netlify.app"],  # Adjust this to your frontend's origin in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,6 +41,9 @@ async def serve_frontend(full_path: str):
         return FileResponse(file_path)
     raise HTTPException(status_code=404, detail="Not Found")
 
+@app.get("/api/status")
+async def status_check():
+    return {"status": "OK"}
 
 if __name__ == "__main__":
     import uvicorn

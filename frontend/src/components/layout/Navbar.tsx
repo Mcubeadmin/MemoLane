@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; //useSearchParams is imported but not used, can be removed
 import { useAuth } from '../../context/AuthContext';
 import ThemeToggle from '../../assets/ThemeToggle';
 
@@ -11,6 +11,29 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [isOnline, setIsOnline] = useState<boolean>(false);
+  useEffect(() => {
+    let intervalId: number;
+
+    const checkServerStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/status');
+        if (response.ok) {
+          setIsOnline(true);
+        } else {
+          setIsOnline(false);
+        }
+      } catch (error) {
+        console.error('Error checking server status:', error);
+        setIsOnline(false);
+      }
+    };
+
+    checkServerStatus();
+    intervalId = setInterval(checkServerStatus, 5 * 60000); // every 5 minute
+
+    return () => clearInterval(intervalId);
+  }, []);
+
 
   const handleLogout = () => {
     logout();
