@@ -15,12 +15,13 @@ function ProtectedShellRoute({ children }: { children: React.ReactElement }) {
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/login" />} /> 
       <Route path="/login" element={<LoginPage />} />
       <Route path="/timeline" element={<ProtectedShellRoute><PlaceholderPage 
       title="TIMELINE"/></ProtectedShellRoute>} />
       <Route path="/explorer" element={<ProtectedShellRoute><ExplorerPage /></ProtectedShellRoute>} />
       <Route path="/memories" element={<ProtectedShellRoute><PlaceholderPage title="MEMORIES" /></ProtectedShellRoute>} />
-      <Route path="*" element={<Navigate to="/explorer" />} />
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 }

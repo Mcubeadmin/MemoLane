@@ -18,7 +18,7 @@ app = FastAPI()
 # CORS middleware to allow frontend to communicate with backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://memolane.netlify.app"],  # Adjust this to your frontend's origin in production
+    allow_origins=["http://localhost:3000", "https://media.mcubeadmin.online", "http://localhost:5173"],  # Adjust this to your frontend's origin in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

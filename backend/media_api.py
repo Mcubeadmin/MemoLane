@@ -89,24 +89,67 @@ async def serve_media(year: str, month: str, filename: str, current_user: User =
     else:
         return FileResponse(file_path, media_type=mime_type)
 
+
+# Updated API routes for lazy-loading media files
 @router.get("/api/media/tree")
 async def get_tree(current_user: User = Depends(get_current_active_user)):
+    """
+    Get the year/month directory structure WITHOUT files.
+    Files are loaded separately via /api/media/files/{year}/{month}
+    """
     tree: List[Dict] = []
     years = [d for d in os.listdir(MEDIA_ROOT) if os.path.isdir(os.path.join(MEDIA_ROOT, d))]
+    
     for year in sorted(years, reverse=True):
         year_path = os.path.join(MEDIA_ROOT, year)
         months = []
+        
         for m in sorted(os.listdir(year_path)):
             month_path = os.path.join(year_path, m)
             if os.path.isdir(month_path):
-                files = [
+                # Count files without loading them all into memory
+                file_count = len([
                     f for f in os.listdir(month_path)
                     if os.path.isfile(os.path.join(month_path, f))
-                ]
+                ])
+                
                 months.append({
                     "dir": m,
                     "label": m.split("_", 1)[1] if "_" in m else m,
-                    "files": files
+                    "file_count": file_count  # Just the count, not the actual files!
                 })
+        
         tree.append({"year": year, "months": months})
+    
     return tree
+
+
+@router.get("/api/media/files/{year}/{month}")
+async def get_month_files(
+    year: str, 
+    month: str,
+    current_user: User = Depends(get_current_active_user)
+):
+    """
+    Get files for a specific year/month combination.
+    Only called when user selects a month.
+    """
+    month_path = os.path.join(MEDIA_ROOT, year, month)
+    
+    # Security: Verify the path is within MEDIA_ROOT
+    if not os.path.abspath(month_path).startswith(os.path.abspath(MEDIA_ROOT)):
+        raise HTTPException(status_code=403, detail="Access denied")
+    
+    if not os.path.isdir(month_path):
+        raise HTTPException(status_code=404, detail="Month not found")
+    
+    files = [
+        f for f in os.listdir(month_path)
+        if os.path.isfile(os.path.join(month_path, f))
+    ]
+    
+    return {
+        "year": year,
+        "month": month,
+        "files": sorted(files)  # Sort files alphabetically
+    }

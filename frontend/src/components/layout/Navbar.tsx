@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
 
     const checkServerStatus = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/status');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/status`);
         if (response.ok) {
           setIsOnline(true);
         } else {

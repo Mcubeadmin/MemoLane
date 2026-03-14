@@ -1,3 +1,15 @@
-GET https://incurred-expiration-renewable-interior.trycloudflare.com/api/media/tree HTTP/1.1
+GET https://fan-sleeve-former-corp.trycloudflare.com/api/media/tree HTTP/1.1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImV4cCI6MTc3MzM5NjU5NX0.0r2P66JwAUmcP90g-Epm8yAJ7OGCpDyybjRrlLtyV6k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImV4cCI6MTc3MzQwNDg5NH0.YQF6jrxVCtAY5q1a_KKKAArSGW5bhcyLBLr9rzldnC0
+
+###
+
+GET https://api-media.mcubeadmin.online/login HTTP/1.1
+Accept: application/json
+
+###
+POST https://api-media.mcubeadmin.online/api/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+username=testuser&password=testpassword
